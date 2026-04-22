@@ -15,13 +15,16 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.sessionVariables = {
-    VISUAL = "vim";
-    EDITOR = "$VISUAL";
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
+
   environment.systemPackages = with pkgs; [
-    vim
     git
     gh
   ];
