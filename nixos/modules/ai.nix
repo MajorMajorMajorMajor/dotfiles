@@ -1,4 +1,4 @@
-{ pkgs, llm-agents, ... }:
+{ pkgs, llm-agents, llm-agents-pinned, ... }:
 
 {
   nix.settings.substituters = [
@@ -12,6 +12,6 @@
 
   environment.systemPackages = [
     llm-agents.packages.${pkgs.system}.pi
-    pkgs.claude-code
+    llm-agents-pinned.packages.${pkgs.system}.claude-code
   ];
 }
