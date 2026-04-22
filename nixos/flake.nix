@@ -1,45 +1,47 @@
 {
-    description = "Surface Pro NixOS";
+  description = "NixOS configurations";
 
-    inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-        nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    outputs = { self, nixpkgs, nixos-hardware, ... }:
-    let
-        system = "x86_64-linux";
-    in {
-        nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-                ./configuration.nix
-                ./hardware-configuration.nix
-
-                nixos-hardware.nixosModules.microsoft-surface-pro-intel
-
-                ({ pkgs, ...}: {
-                    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-                    nix.settings.substituters = [
-                        "https://cache.nixos.org"
-                        "https://linux-surface.cachix.org"
-                        "https://surface-nix.cachix.org"
-                    ];
-                    nix.settings.trusted-public-keys = [
-                        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-                        "linux-surface.cachix.org-1:dorigzlDDV6AacaQLVHHYU8scAzBIlwAhGz/JQ8fVeI="
-                        "surface-nix.cachix.org-1:RsYTWm0eGHpJO6FBL9l/pZMHBYHcI9siaPVNM2oHD+8="
-                    ];
-
-                    # microsoft-surface.ipts.enable = true;  # touchscreen
-
-                    environment.systemPackages = with pkgs; [
-                        vim
-                        git
-                        baobab
-                    ];
-                })
-            ];
-        };
+    llm-agents = {
+      url = "github:MajorMajorMajorMajor/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+  };
+
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nixos-wsl, llm-agents }:
+  let
+    system = "x86_64-linux";
+    specialArgs = { inherit llm-agents; };
+  in {
+    nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
+      inherit system specialArgs;
+      modules = [
+        ./hosts/feather
+        ./modules/common.nix
+        ./modules/desktop.nix
+        ./modules/ai.nix
+        nixos-hardware.nixosModules.microsoft-surface-pro-intel
+      ];
+    };
+
+    nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+      inherit system specialArgs;
+      modules = [
+        ./hosts/wsl
+        ./modules/common.nix
+        ./modules/ai.nix
+        nixos-wsl.nixosModules.default
+      ];
+    };
+  };
 }
