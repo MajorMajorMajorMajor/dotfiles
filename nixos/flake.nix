@@ -10,7 +10,7 @@
     let
         system = "x86_64-linux";
     in {
-        nixosConfigurations.surface = nixpkgs.lib.nixosSystem {
+        nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
             inherit system;
             modules = [
                 ./configuration.nix
