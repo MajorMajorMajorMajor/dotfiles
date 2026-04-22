@@ -31,11 +31,12 @@
     nixos-wsl, 
 
     llm-agents,
-    llm-agents-pinned
-  }:
+    llm-agents-pinned,
+    ...
+  } @ inputs:
   let
     system = "x86_64-linux";
-    specialArgs = { inherit llm-agents llm-agents-pinned; };
+    specialArgs = { inherit inputs llm-agents llm-agents-pinned; };
   in {
     nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
       inherit system specialArgs;
