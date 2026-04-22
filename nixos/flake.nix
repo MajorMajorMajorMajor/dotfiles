@@ -13,12 +13,26 @@
     };
 
     llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    llm-agents-pinned = {
       url = "github:MajorMajorMajorMajor/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nixos-wsl, llm-agents }:
+  outputs = { 
+    self, 
+    nixpkgs, nixpkgs-unstable, 
+
+    nixos-hardware, 
+    nixos-wsl, 
+
+    llm-agents,
+    llm-agents-pinned
+  }:
   let
     system = "x86_64-linux";
     specialArgs = { inherit llm-agents; };
