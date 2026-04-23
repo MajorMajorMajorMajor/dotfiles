@@ -45,6 +45,7 @@
     # ai preferred tools
     ripgrep
     fd
+    jq
     tmux
 
     # my preferred tools
