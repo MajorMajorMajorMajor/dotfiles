@@ -34,6 +34,7 @@
     sane-backends # scanner drivers/backends used by simple-scan and other scan tools
     smplayer
     pkgs-unstable.discord
+    pkgs-unstable.signal-desktop
     gitg
     baobab
     google-chrome
