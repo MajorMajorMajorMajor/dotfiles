@@ -17,7 +17,7 @@
   users.users.stas = {
     isNormalUser = true;
     description = "stas";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ];
   };
 
   nix.settings.substituters = [
@@ -28,6 +28,16 @@
     "linux-surface.cachix.org-1:dorigzlDDV6AacaQLVHHYU8scAzBIlwAhGz/JQ8fVeI="
     "surface-nix.cachix.org-1:RsYTWm0eGHpJO6FBL9l/pZMHBYHcI9siaPVNM2oHD+8="
   ];
+
+  hardware.sane.brscan4 = {
+    enable = true;
+    netDevices = {
+      brother7860 = {
+        model = "MFC-7860DW";
+        ip = "192.168.1.50";
+      };
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     baobab

@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   services.xserver.enable = true;
@@ -14,6 +14,18 @@
   console.keyMap = "dvorak";
 
   services.printing.enable = true;
+
+  hardware.sane.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    simple-scan
+    sane-backends
+  ];
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
