@@ -28,5 +28,8 @@
     python312
     git
     gh
+
+    neovim
+    neovide # sick gui for neovim
   ];
 }
