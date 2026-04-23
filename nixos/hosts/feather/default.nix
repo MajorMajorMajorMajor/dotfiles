@@ -34,7 +34,7 @@
     netDevices = {
       brother7860 = {
         model = "MFC-7860DW";
-        ip = "192.168.1.50";
+        nodename = "BRN001BA9EEACDD.local";
       };
     };
   };
