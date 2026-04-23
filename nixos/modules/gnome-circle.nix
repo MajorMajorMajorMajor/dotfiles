@@ -2,36 +2,49 @@
 
 {
   environment.systemPackages = with pkgs; [
+    # Writing and notes
     apostrophe
+    iotas
+    keypunch
+    textpieces
+    wordbook
+
+    # Security and identity
     authenticator
-    chess-clock
-    fretboard
+    identity
+    gnome-secrets
+    gnome-obfuscate
+
+    # Utilities and productivity
     errands
     eyedropper
-    drum-machine
-    gradia
-    graphs
-    identity
-    iotas
     junction
-    keypunch
-    gnome-mahjongg
-    komikku
-    mousai
-    newsflash
-    gnome-obfuscate
     pika-backup
     resources
-    gnome-secrets
-    shortwave
     solanum
     gnome-pomodoro
+    valuta
+
+    # Media and creative
+    drum-machine
+    fretboard
+    gradia
+    komikku
+    mousai
+    shortwave
+
+    # Data, learning, and reference
+    graphs
+    newsflash
+    wike
+
+    # Games
+    chess-clock
+    gnome-mahjongg
     gnome-sudoku
     tangram
-    textpieces
-    valuta
+
+    # Networking
     warp
-    wike
-    wordbook
   ];
 }
