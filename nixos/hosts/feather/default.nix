@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -38,10 +38,6 @@
       };
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    baobab
-  ];
 
   # microsoft-surface.ipts.enable = true;  # touchscreen
 
