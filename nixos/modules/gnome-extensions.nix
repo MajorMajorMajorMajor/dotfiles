@@ -5,6 +5,7 @@ let
     places-status-indicator
     clipboard-indicator
     extension-list
+    top-bar-organizer
   ];
 in
 {
