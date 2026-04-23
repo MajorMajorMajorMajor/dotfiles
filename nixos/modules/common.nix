@@ -37,6 +37,10 @@
     python312
     git
     gh
+    ripgrep
+    tmux
+    fd
+    screen
 
     neovim
     neovide # sick gui for neovim
