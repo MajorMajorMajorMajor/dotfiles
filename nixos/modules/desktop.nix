@@ -25,6 +25,7 @@
   environment.systemPackages = with pkgs; [
     simple-scan
     sane-backends
+    smplayer
   ];
 
   services.pulseaudio.enable = false;
