@@ -54,14 +54,35 @@ WINEPREFIX=$HOME/.wine-turbotax64 nix shell np#wineWowPackages.stable np#samba -
 - TurboTax then progressed further and successfully detected updates.
 - However, app stability remains inconsistent (freeze/hang observed during/after update flow).
 
+## Latest findings (post-crash / microSD stress)
+- A fresh Wine launch test hit heavy prefix initialization (`wineboot --init`) and timed out in-agent.
+- Saw large `setupapi` copy-error spam for `*.nls` files initially; making those files writable removed that specific error stream.
+- System instability/crash is likely related to heavy I/O on the microSD card during Wine/Proton + .NET/update activity.
+- Constraint confirmed: **SSD Windows install is untouchable** (no risky write-heavy experimentation there).
+
+## Safer launch profile (current)
+- Reuse the existing prefix only: `WINEPREFIX=$HOME/.wine-turbotax64`
+- Minimize log churn: `WINEDEBUG=-all`
+- Prefer software rendering for stability: `LIBGL_ALWAYS_SOFTWARE=1`
+- Avoid repeated winetricks/prefix rebuilds unless absolutely necessary.
+
+Recommended command:
+```bash
+WINEPREFIX=$HOME/.wine-turbotax64 \
+WINEDEBUG=-all \
+LIBGL_ALWAYS_SOFTWARE=1 \
+nix shell np#wineWowPackages.stable np#samba -c \
+  wine "/mnt/windows/Program Files (x86)/TurboTax 2025/tt2025.exe"
+```
+
 ## Next steps
-1. **Session cleanup after hang**
-   - If TurboTax/Proton UI hangs and force quit is unresponsive, log out/in to clear stale Wine/Proton state.
-2. **Relaunch with Proton (preferred for now)**
-   - Use the same Proton GE + `umu-run` path and keep `WINEPREFIX=$HOME/.wine-turbotax64`.
+1. **Stability first (no churn)**
+   - Use one fixed launcher command and avoid component reinstalls/reinitialization loops.
+2. **Session recovery procedure**
+   - If UI hangs and kill fails, log out/in to clear stale Wine/Proton processes.
 3. **Activation workflow**
    - Prefer **Activate Outside** (browser-based) if in-app activation errors persist.
-4. **Stability hardening**
-   - Keep software rendering enabled for launch (`LIBGL_ALWAYS_SOFTWARE=1`) to reduce graphics-related hangs.
-5. **Document a final one-command launcher**
-   - Create a stable script once update+activation succeeds reliably.
+4. **Optional prefix backup once stable**
+   - Create a tarball backup of `.wine-turbotax64` to recover quickly after crashes.
+5. **Only then finalize launcher script**
+   - Capture the stable command in a one-shot script after repeatable successful launches.
