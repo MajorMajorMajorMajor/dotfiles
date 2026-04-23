@@ -36,6 +36,7 @@
     pkgs-unstable.discord
     gitg
     baobab
+    google-chrome
   ];
 
   services.pulseaudio.enable = false;
