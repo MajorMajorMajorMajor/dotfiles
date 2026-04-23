@@ -44,3 +44,24 @@ WINEPREFIX=$HOME/.wine-turbotax64 nix shell np#wineWowPackages.stable np#samba -
 
 ## Current status
 ✅ Core objective achieved: running Windows executables (including TurboTax) from the Windows SSD partition on this NixOS setup.
+
+## Latest findings (Proton test pass)
+- Set up standalone Proton runner path (no Steam UI dependency) using:
+  - `umu-launcher`
+  - `protonup-ng`
+  - `GE-Proton10-34` installed into `~/.local/share/Steam/compatibilitytools.d`
+- Reused TurboTax prefix under Proton and installed `.NET 4.8` with winetricks.
+- TurboTax then progressed further and successfully detected updates.
+- However, app stability remains inconsistent (freeze/hang observed during/after update flow).
+
+## Next steps
+1. **Session cleanup after hang**
+   - If TurboTax/Proton UI hangs and force quit is unresponsive, log out/in to clear stale Wine/Proton state.
+2. **Relaunch with Proton (preferred for now)**
+   - Use the same Proton GE + `umu-run` path and keep `WINEPREFIX=$HOME/.wine-turbotax64`.
+3. **Activation workflow**
+   - Prefer **Activate Outside** (browser-based) if in-app activation errors persist.
+4. **Stability hardening**
+   - Keep software rendering enabled for launch (`LIBGL_ALWAYS_SOFTWARE=1`) to reduce graphics-related hangs.
+5. **Document a final one-command launcher**
+   - Create a stable script once update+activation succeeds reliably.
