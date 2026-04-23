@@ -22,7 +22,6 @@
     pika-backup
     resources
     solanum
-    gnome-pomodoro
     valuta
 
     # Media and creative
