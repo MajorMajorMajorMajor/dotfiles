@@ -37,14 +37,21 @@
     python312
     git
     gh
-    ripgrep
-    tmux
-    fd
-    screen
 
+    # ai preferred tools
+    ripgrep
+    fd
+    tmux
+
+    # my preferred tools
+    screen
     neovim
     neovide # sick gui for neovim
 
+    # hipster stuff
+    lazygit
+
+    # voice for Claude... kinda sucks
     sox
   ];
 }
