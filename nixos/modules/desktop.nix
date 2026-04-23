@@ -52,6 +52,7 @@
     gnome-secrets
     shortwave
     solanum
+    gnome-pomodoro
     gnome-sudoku
     tangram
     textpieces
