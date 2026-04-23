@@ -1,9 +1,14 @@
 { pkgs, ... }:
 
-{
-  environment.systemPackages = with pkgs; [
-    gnomeExtensions.places-status-indicator
+let
+  extensions = with pkgs.gnomeExtensions; [
+    places-status-indicator
+    clipboard-indicator
+    extension-list
   ];
+in
+{
+  environment.systemPackages = extensions;
 
   services.desktopManager.gnome = {
     extraGSettingsOverridePackages = [
@@ -12,7 +17,7 @@
 
     extraGSettingsOverrides = ''
       [org.gnome.shell]
-      enabled-extensions=['${pkgs.gnomeExtensions.places-status-indicator.extensionUuid}']
+      enabled-extensions=[${builtins.concatStringsSep "," (map (ext: "'${ext.extensionUuid}'") extensions)}]
     '';
   };
 }
