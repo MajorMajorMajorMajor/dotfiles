@@ -36,5 +36,7 @@
 
     neovim
     neovide # sick gui for neovim
+
+    sox
   ];
 }
