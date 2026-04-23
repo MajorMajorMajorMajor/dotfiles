@@ -7,6 +7,12 @@
   services.desktopManager.gnome.enable = true;
   services.gnome.gnome-browser-connector.enable = true;
 
+  # Use unstable GVFS with Google backend enabled.
+  services.gvfs.package = pkgs-unstable.gvfs.override {
+    gnomeSupport = true;
+    googleSupport = true;
+  };
+
   services.xserver.xkb = {
     layout = "us";
     variant = "dvorak";

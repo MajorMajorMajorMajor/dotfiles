@@ -36,7 +36,13 @@
   } @ inputs:
   let
     system = "x86_64-linux";
-    pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [ "libsoup-2.74.3" ];
+      };
+    };
     specialArgs = { inherit inputs llm-agents llm-agents-pinned pkgs-unstable; };
   in {
     nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
