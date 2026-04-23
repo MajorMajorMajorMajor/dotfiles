@@ -38,6 +38,7 @@
     gitg
     baobab
     google-chrome
+    libreoffice
   ];
 
   services.pulseaudio.enable = false;
