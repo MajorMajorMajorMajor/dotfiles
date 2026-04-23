@@ -14,6 +14,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  environment.variables = {
+    VISUAL = "vim";
+  };
+
   environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
