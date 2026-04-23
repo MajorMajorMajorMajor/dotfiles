@@ -50,11 +50,12 @@
 
     # my preferred tools
     screen
-    neovim
-    neovide # sick gui for neovim
+    bat
 
     # hipster stuff
     lazygit
+    neovim
+    neovide # sick gui for neovim
 
     # voice for Claude... kinda sucks
     sox
