@@ -36,7 +36,8 @@
   } @ inputs:
   let
     system = "x86_64-linux";
-    specialArgs = { inherit inputs llm-agents llm-agents-pinned; };
+    pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+    specialArgs = { inherit inputs llm-agents llm-agents-pinned pkgs-unstable; };
   in {
     nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
       inherit system specialArgs;

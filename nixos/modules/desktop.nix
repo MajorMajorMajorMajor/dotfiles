@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   services.xserver.enable = true;
@@ -26,6 +26,7 @@
     simple-scan
     sane-backends
     smplayer
+    pkgs-unstable.discord
   ];
 
   services.pulseaudio.enable = false;
