@@ -19,6 +19,7 @@
     };
 
   fileSystems."/boot" =
+    # NOTICE: This is the EFI boot partition ON THE MAIN SSD, even if NixOS is installed on the SD card.
     { device = "/dev/disk/by-uuid/D620-3744";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
