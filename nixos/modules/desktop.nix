@@ -27,6 +27,7 @@
     sane-backends
     smplayer
     pkgs-unstable.discord
+    gitg
 
     baobab
     apostrophe
