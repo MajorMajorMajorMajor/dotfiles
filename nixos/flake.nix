@@ -45,6 +45,7 @@
         ./hosts/feather
         ./modules/common.nix
         ./modules/desktop.nix
+        ./modules/gnome-extensions.nix
         ./modules/ai.nix
         nixos-hardware.nixosModules.microsoft-surface-pro-intel
       ];
