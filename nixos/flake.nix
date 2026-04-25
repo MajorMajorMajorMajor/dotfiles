@@ -25,11 +25,10 @@
 
   outputs = {
     self,
-    nixpkgs, nixpkgs-unstable,
-
+    nixpkgs,
+    nixpkgs-unstable,
     nixos-hardware,
     nixos-wsl,
-
     llm-agents,
     llm-agents-pinned,
     ...

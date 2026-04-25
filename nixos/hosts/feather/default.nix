@@ -39,7 +39,8 @@
     };
   };
 
-  # microsoft-surface.ipts.enable = true;  # touchscreen
+  # TODO: try enabling touchscreen support
+  # microsoft-surface.ipts.enable = true;
 
   services.openssh.enable = true;
 
