@@ -17,6 +17,8 @@
     nssmdns4 = true;
   };
 
+  systemd.services.avahi-daemon.serviceConfig.ExecStartPre = "+${pkgs.coreutils}/bin/rm -f /run/avahi-daemon/pid";
+
   environment.systemPackages = with pkgs; [
     simple-scan # GNOME scanning app (frontend for SANE scanners)
     sane-backends # scanner drivers/backends used by simple-scan and other scan tools
