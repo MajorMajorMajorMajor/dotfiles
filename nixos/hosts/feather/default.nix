@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -46,7 +46,7 @@
   nix.settings.max-jobs = 1;
 
   systemd.services.nix-daemon.serviceConfig = {
-    IOSchedulingClass = "idle";
+    IOSchedulingClass = lib.mkForce "idle";
     Nice = 19;
   };
 
