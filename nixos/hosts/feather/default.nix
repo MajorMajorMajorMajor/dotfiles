@@ -43,6 +43,13 @@
 
   services.openssh.enable = true;
 
+  nix.settings.max-jobs = 1;
+
+  systemd.services.nix-daemon.serviceConfig = {
+    IOSchedulingClass = "idle";
+    Nice = 19;
+  };
+
   zramSwap = {
     enable = true;
     algorithm = "zstd";
