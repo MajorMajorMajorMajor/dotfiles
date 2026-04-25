@@ -16,6 +16,8 @@ in
       pkgs.gnome-shell
     ];
 
+    # NOTE: this override locks the enabled-extensions list — toggling extensions
+    # via the GNOME Extensions app won't persist across boots. Edit this list instead.
     extraGSettingsOverrides = ''
       [org.gnome.shell]
       enabled-extensions=[${builtins.concatStringsSep "," (map (ext: "'${ext.extensionUuid}'") extensions)}]
