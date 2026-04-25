@@ -39,4 +39,6 @@
   programs.firefox.enable = true;
   programs.chromium.enable = true;
   programs.vscode.enable = true;
+
+  services.dropbox.enable = true;
 }
