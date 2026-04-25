@@ -25,7 +25,7 @@
     pkgs-unstable.signal-desktop
     google-chrome
     libreoffice
-    logseq
+    pkgs-unstable.logseq
   ];
 
   services.pulseaudio.enable = false;
