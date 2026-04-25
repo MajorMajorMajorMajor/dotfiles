@@ -8,7 +8,11 @@
 
   console.keyMap = "dvorak";
 
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    # brlaser drives the Brother MFC-7860DW; scanner configured in hosts/feather via hardware.sane.brscan4.
+    drivers = [ pkgs.brlaser ];
+  };
 
   hardware.sane.enable = true;
 
