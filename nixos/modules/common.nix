@@ -14,10 +14,6 @@
   nix.settings.trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    # Required to build GVFS with Google Drive backend support.
-    "libsoup-2.74.3"
-  ];
 
   environment.variables = {
     VISUAL = "vim";
