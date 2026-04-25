@@ -25,6 +25,7 @@
     pkgs-unstable.signal-desktop
     google-chrome
     libreoffice
+    dropbox
     pkgs-unstable.logseq
   ];
 
@@ -40,6 +41,4 @@
   programs.firefox.enable = true;
   programs.chromium.enable = true;
   programs.vscode.enable = true;
-
-  services.dropbox.enable = true;
 }
