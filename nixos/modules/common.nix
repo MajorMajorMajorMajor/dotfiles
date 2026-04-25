@@ -25,6 +25,7 @@
 
   environment.shellAliases = {
     lg = "lazygit";
+    rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#$(hostname)";
   };
 
   environment.sessionVariables = {
