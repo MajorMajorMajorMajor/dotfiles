@@ -29,7 +29,7 @@
 
   programs.bash.interactiveShellInit = ''
     rebuild() {
-      local target="''${1:-$(cat /etc/nixos-rebuild-target 2>/dev/null || hostname)}"
+      local target="''${1:-$(cat /etc/nixos-rebuild-target)}"
       sudo nixos-rebuild switch --flake ~/dotfiles/nixos#"$target"
     }
   '';
