@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs-unstable, ... }:
 
 {
   services.displayManager.gdm.enable = true;
@@ -11,9 +11,4 @@
     googleSupport = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    simple-scan
-    gitg
-    baobab
-  ];
 }

@@ -16,6 +16,7 @@
     gnome-obfuscate
 
     # Utilities and productivity
+    baobab
     errands
     eyedropper
     junction
@@ -33,6 +34,7 @@
     shortwave
 
     # Data, learning, and reference
+    gitg
     graphs
     newsflash
     wike

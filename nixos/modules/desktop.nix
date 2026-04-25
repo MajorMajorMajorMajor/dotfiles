@@ -20,7 +20,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    sane-backends
+    simple-scan # GNOME scanning app (frontend for SANE scanners)
+    sane-backends # scanner drivers/backends used by simple-scan and other scan tools
     smplayer
     pkgs-unstable.discord
     pkgs-unstable.signal-desktop
