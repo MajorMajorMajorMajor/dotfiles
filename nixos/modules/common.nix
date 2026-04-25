@@ -48,10 +48,7 @@
 
 
   environment.systemPackages = with pkgs; [
-    (writeShellScriptBin "rebuild" ''
-      target="''${1:-$(cat /etc/nixos-rebuild-target)}"
-      exec sudo nixos-rebuild switch --flake ~/dotfiles/nixos#"$target"
-    '')
+    (writeShellScriptBin "rebuild" (builtins.readFile ../scripts/rebuild.sh))
 
     # dev tools
     python312
