@@ -20,15 +20,6 @@
     extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ];
   };
 
-  nix.settings.substituters = [
-    "https://linux-surface.cachix.org"
-    "https://surface-nix.cachix.org"
-  ];
-  nix.settings.trusted-public-keys = [
-    "linux-surface.cachix.org-1:dorigzlDDV6AacaQLVHHYU8scAzBIlwAhGz/JQ8fVeI="
-    "surface-nix.cachix.org-1:RsYTWm0eGHpJO6FBL9l/pZMHBYHcI9siaPVNM2oHD+8="
-  ];
-
   hardware.sane.brscan4 = {
     enable = true;
     netDevices = {
