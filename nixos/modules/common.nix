@@ -33,6 +33,8 @@
     lg = "lazygit";
   };
 
+  # Required for ad-hoc `nix shell`/`nix run` with unfree packages;
+  # nixpkgs.config in flake.nix only covers system builds.
   environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
