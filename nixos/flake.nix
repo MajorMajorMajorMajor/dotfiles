@@ -21,6 +21,11 @@
       url = "github:MajorMajorMajorMajor/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    dank-material-shell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
@@ -31,6 +36,7 @@
     nixos-wsl,
     llm-agents,
     llm-agents-pinned,
+    dank-material-shell,
     ...
   } @ inputs:
   let
@@ -75,6 +81,7 @@
         ./modules/desktop.nix
         ./modules/gnome-circle.nix
         ./modules/niri.nix
+        dank-material-shell.nixosModules.default
         ./modules/ai.nix
         nixos-hardware.nixosModules.microsoft-surface-pro-intel
       ];
