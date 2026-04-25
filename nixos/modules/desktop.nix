@@ -26,6 +26,7 @@
     google-chrome
     libreoffice
     dropbox
+    dropbox-cli
     pkgs-unstable.logseq
   ];
 
