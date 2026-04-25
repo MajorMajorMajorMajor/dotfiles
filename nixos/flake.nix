@@ -23,12 +23,12 @@
     };
   };
 
-  outputs = { 
-    self, 
-    nixpkgs, nixpkgs-unstable, 
+  outputs = {
+    self,
+    nixpkgs, nixpkgs-unstable,
 
-    nixos-hardware, 
-    nixos-wsl, 
+    nixos-hardware,
+    nixos-wsl,
 
     llm-agents,
     llm-agents-pinned,
@@ -45,12 +45,14 @@
     };
     specialArgs = { inherit inputs llm-agents llm-agents-pinned pkgs-unstable; };
   in {
-    nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.feather-gnome = nixpkgs.lib.nixosSystem {
       inherit system specialArgs;
       modules = [
+        { environment.etc."nixos-rebuild-target".text = "feather-gnome\n"; }
         ./hosts/feather
         ./modules/common.nix
         ./modules/desktop.nix
+        ./modules/gnome.nix
         ./modules/gnome-circle.nix
         ./modules/gnome-extensions.nix
         ./modules/ai.nix
@@ -61,6 +63,7 @@
     nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
       inherit system specialArgs;
       modules = [
+        { environment.etc."nixos-rebuild-target".text = "wsl\n"; }
         ./hosts/wsl
         ./modules/common.nix
         ./modules/ai.nix

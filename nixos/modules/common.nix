@@ -25,8 +25,14 @@
 
   environment.shellAliases = {
     lg = "lazygit";
-    rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#$(hostname)";
   };
+
+  programs.bash.interactiveShellInit = ''
+    rebuild() {
+      local target="''${1:-$(cat /etc/nixos-rebuild-target 2>/dev/null || hostname)}"
+      sudo nixos-rebuild switch --flake ~/dotfiles/nixos#"$target"
+    }
+  '';
 
   environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = "1";
