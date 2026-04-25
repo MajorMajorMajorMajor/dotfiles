@@ -66,6 +66,20 @@
       ];
     };
 
+    nixosConfigurations.feather-niri = nixpkgs.lib.nixosSystem {
+      inherit system pkgs specialArgs;
+      modules = [
+        { environment.etc."nixos-rebuild-target".text = "feather-niri\n"; }
+        ./hosts/feather
+        ./modules/common.nix
+        ./modules/desktop.nix
+        ./modules/gnome-circle.nix
+        ./modules/niri.nix
+        ./modules/ai.nix
+        nixos-hardware.nixosModules.microsoft-surface-pro-intel
+      ];
+    };
+
     nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
       inherit system pkgs specialArgs;
       modules = [
