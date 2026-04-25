@@ -43,5 +43,17 @@
 
   services.openssh.enable = true;
 
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+    "vm.dirty_ratio" = 5;
+    "vm.dirty_background_ratio" = 2;
+  };
+
   system.stateVersion = "25.11";
 }
