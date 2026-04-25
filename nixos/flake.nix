@@ -35,6 +35,13 @@
   } @ inputs:
   let
     system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [ "libsoup-2.74.3" ];
+      };
+    };
     pkgs-unstable = import nixpkgs-unstable {
       inherit system;
       config = {
@@ -45,7 +52,7 @@
     specialArgs = { inherit inputs llm-agents llm-agents-pinned pkgs-unstable; };
   in {
     nixosConfigurations.feather-gnome = nixpkgs.lib.nixosSystem {
-      inherit system specialArgs;
+      inherit system pkgs specialArgs;
       modules = [
         { environment.etc."nixos-rebuild-target".text = "feather-gnome\n"; }
         ./hosts/feather
@@ -60,7 +67,7 @@
     };
 
     nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
-      inherit system specialArgs;
+      inherit system pkgs specialArgs;
       modules = [
         { environment.etc."nixos-rebuild-target".text = "wsl\n"; }
         ./hosts/wsl

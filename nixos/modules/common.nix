@@ -25,8 +25,6 @@
     "surface-nix.cachix.org-1:RsYTWm0eGHpJO6FBL9l/pZMHBYHcI9siaPVNM2oHD+8="
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   environment.variables = {
     VISUAL = "vim";
   };
