@@ -27,13 +27,6 @@
     lg = "lazygit";
   };
 
-  programs.bash.interactiveShellInit = ''
-    rebuild() {
-      local target="''${1:-$(cat /etc/nixos-rebuild-target)}"
-      sudo nixos-rebuild switch --flake ~/dotfiles/nixos#"$target"
-    }
-  '';
-
   environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
@@ -45,6 +38,11 @@
 
 
   environment.systemPackages = with pkgs; [
+    (writeShellScriptBin "rebuild" ''
+      target="''${1:-$(cat /etc/nixos-rebuild-target)}"
+      exec sudo nixos-rebuild switch --flake ~/dotfiles/nixos#"$target"
+    '')
+
     python312
     git
     gh
