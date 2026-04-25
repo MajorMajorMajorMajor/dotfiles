@@ -33,7 +33,14 @@
   # TODO: try enabling touchscreen support
   # microsoft-surface.ipts.enable = true;
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    openFirewall = false;
+  };
+
+  networking.firewall.extraCommands = ''
+    iptables -A nixos-fw -p tcp --dport 22 -s 192.168.3.0/24 -j nixos-fw-accept
+  '';
 
   nix.settings.max-jobs = 1;
 
