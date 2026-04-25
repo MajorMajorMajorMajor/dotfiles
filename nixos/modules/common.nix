@@ -39,6 +39,8 @@
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
+  programs.bash.interactiveShellInit = "set -o vi";
+
   programs.vim = {
     enable = true;
     defaultEditor = true;
