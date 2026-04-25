@@ -39,9 +39,16 @@
       exec sudo nixos-rebuild switch --flake ~/dotfiles/nixos#"$target"
     '')
 
+    # dev tools
     python312
     git
     gh
+
+    # multimedia
+    (pkgs.ffmpeg-full.override { 
+      withUnfree = true; 
+      withRtmp = true;
+    })
 
     # ai preferred tools
     ripgrep
