@@ -13,6 +13,11 @@
     dgop.package = pkgs-unstable.dgop;
   };
 
+  environment.systemPackages = 
+    with pkgs-unstable; [
+      fuzzel
+    ];
+
   # Lightweight Wayland login manager for a compositor-first setup.
   services.greetd = {
     enable = true;
