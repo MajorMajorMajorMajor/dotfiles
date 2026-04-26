@@ -7,7 +7,9 @@
     package = pkgs-unstable.niri;
   };
 
-  programs.xwayland.enable = true;
+  # niri itself doesn't manage Xwayland; use xwayland-satellite for X11 apps.
+  systemd.user.packages = [ pkgs.xwayland-satellite ];
+  systemd.user.targets.graphical-session.wants = [ "xwayland-satellite.service" ];
 
   programs.dank-material-shell = {
     enable = true;
