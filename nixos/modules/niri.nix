@@ -7,9 +7,22 @@
     package = pkgs-unstable.niri;
   };
 
-  # niri itself doesn't manage Xwayland; use xwayland-satellite for X11 apps.
-  systemd.user.packages = [ pkgs.xwayland-satellite ];
-  systemd.user.targets.graphical-session.wants = [ "xwayland-satellite.service" ];
+  # niri itself doesn't manage Xwayland; run xwayland-satellite as a user service for X11 apps.
+  systemd.user.services.xwayland-satellite = {
+    description = "Xwayland outside your Wayland compositor";
+    bindsTo = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    requisite = [ "graphical-session.target" ];
+    wantedBy = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "notify";
+      ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
+      StandardOutput = "journal";
+      Restart = "on-failure";
+      RestartSec = "1s";
+    };
+  };
 
   programs.dank-material-shell = {
     enable = true;
