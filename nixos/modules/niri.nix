@@ -7,6 +7,8 @@
     package = pkgs-unstable.niri;
   };
 
+  programs.xwayland.enable = true;
+
   programs.dank-material-shell = {
     enable = true;
     systemd.enable = true;
