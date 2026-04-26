@@ -1,11 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    package = pkgs-unstable.niri;
+  };
 
   programs.dank-material-shell = {
     enable = true;
     systemd.enable = true;
+    dgop.package = pkgs-unstable.dgop;
   };
 
   # Lightweight Wayland login manager for a compositor-first setup.
@@ -13,7 +17,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri-session";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
         user = "greeter";
       };
     };
