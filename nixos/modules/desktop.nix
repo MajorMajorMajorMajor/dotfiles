@@ -34,6 +34,8 @@
     dropbox
     dropbox-cli
     pkgs-unstable.logseq
+
+    pkgs-unstable.alacritty
   ];
 
   services.pulseaudio.enable = false;
