@@ -50,6 +50,8 @@
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "rebuild" (builtins.readFile ../scripts/rebuild.sh))
 
+    killall
+
     # dev tools
     python312
     git
