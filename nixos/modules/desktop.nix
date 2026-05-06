@@ -32,7 +32,10 @@
     google-chrome
     libreoffice
     maestral
-    maestral-gui
+    (writeShellScriptBin "maestral_qt" ''
+      export XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}:${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+      exec ${maestral-gui}/bin/maestral_qt "$@"
+    '')
     pkgs-unstable.logseq
 
     pkgs-unstable.alacritty
