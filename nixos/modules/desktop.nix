@@ -31,8 +31,8 @@
     pkgs-unstable.signal-desktop
     google-chrome
     libreoffice
-    dropbox
-    dropbox-cli
+    maestral
+    maestral-gui
     pkgs-unstable.logseq
 
     pkgs-unstable.alacritty
