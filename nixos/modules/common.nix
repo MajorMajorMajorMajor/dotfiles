@@ -49,6 +49,7 @@
 
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "rebuild" (builtins.readFile ../scripts/rebuild.sh))
+    (writeShellScriptBin "gh-commits" (builtins.readFile ../scripts/gh-commits.sh))
 
     killall
 
