@@ -36,6 +36,12 @@
       export XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}:${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
       exec ${maestral-gui}/bin/maestral_qt "$@"
     '')
+    # Desktop file and icon for GNOME app launcher (writeShellScriptBin provides only the binary)
+    (runCommand "maestral-desktop" {} ''
+      mkdir -p $out/share/applications $out/share/icons/hicolor/512x512/apps
+      cp ${maestral-gui}/share/applications/maestral.desktop $out/share/applications/
+      cp ${maestral-gui}/share/icons/hicolor/512x512/apps/maestral.png $out/share/icons/hicolor/512x512/apps/
+    '')
     pkgs-unstable.logseq
 
     pkgs-unstable.alacritty
@@ -48,6 +54,18 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+
+  # Start maestral daemon at login so maestral_qt connects instantly instead of timing out
+  systemd.user.services.maestral = {
+    description = "Maestral Dropbox sync daemon";
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
   };
 
   programs.firefox.enable = true;
