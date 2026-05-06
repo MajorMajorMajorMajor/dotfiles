@@ -39,7 +39,12 @@
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
-  programs.bash.interactiveShellInit = "set -o vi";
+  programs.bash.interactiveShellInit = ''
+    set -o vi
+    nixos-delete-generations() {
+      sudo nix-env --delete-generations "$@" --profile /nix/var/nix/profiles/system
+    }
+  '';
 
   programs.vim = {
     enable = true;
@@ -69,6 +74,10 @@
     fd
     jq
     tmux
+
+    # nix tools
+    nh
+    nix-tree
 
     # my preferred tools
     screen
