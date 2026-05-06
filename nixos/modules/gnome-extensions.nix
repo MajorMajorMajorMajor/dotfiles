@@ -12,7 +12,6 @@ let
     clipboard-indicator
     extension-list
     top-bar-organizer
-    appindicator
   ];
 
 in 
