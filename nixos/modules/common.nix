@@ -27,6 +27,7 @@
 
   environment.variables = {
     VISUAL = "vim";
+    LESS = "--mouse";
   };
 
   environment.shellAliases = {
