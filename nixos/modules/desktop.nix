@@ -10,13 +10,6 @@ let
     mkdir -p $out
     unzip ${dedrm-archive} DeDRM_plugin.zip Obok_plugin.zip -d $out/
   '';
-  install-dedrm = pkgs.writeShellScriptBin "install-dedrm" ''
-    echo "Installing DeDRM plugin..."
-    ${pkgs.calibre}/bin/calibre-customize -a ${dedrm-plugins}/DeDRM_plugin.zip
-    echo "Installing Obok plugin (Kobo DRM)..."
-    ${pkgs.calibre}/bin/calibre-customize -a ${dedrm-plugins}/Obok_plugin.zip
-    echo "Done. Restart Calibre if it is running."
-  '';
 in
 
 {
@@ -66,7 +59,6 @@ in
     pkgs-unstable.alacritty
 
     calibre
-    install-dedrm
   ];
 
   services.pulseaudio.enable = false;
@@ -87,6 +79,20 @@ in
       ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
       Restart = "on-failure";
       RestartSec = "5s";
+    };
+  };
+
+  systemd.user.services.calibre-dedrm = {
+    description = "Install Calibre DeDRM plugins";
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = toString (pkgs.writeShellScript "calibre-install-dedrm" ''
+        ${pkgs.calibre}/bin/calibre-customize -a ${dedrm-plugins}/DeDRM_plugin.zip
+        ${pkgs.calibre}/bin/calibre-customize -a ${dedrm-plugins}/Obok_plugin.zip
+      '');
     };
   };
 
