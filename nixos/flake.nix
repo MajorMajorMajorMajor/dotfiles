@@ -61,34 +61,44 @@
       };
     };
     specialArgs = { inherit inputs llm-agents llm-agents-pinned pkgs-unstable; };
-  in {
-    nixosConfigurations.feather-gnome = nixpkgs.lib.nixosSystem {
-      inherit system pkgs specialArgs;
-      modules = [
-        { environment.etc."nixos-rebuild-target".text = "feather-gnome\n"; }
-        ./hosts/feather
-        ./modules/common.nix
-        ./modules/desktop.nix
-        ./modules/gnome.nix
-        ./modules/gnome-circle.nix
-        ./modules/gnome-extensions.nix
-        ./modules/ai.nix
-        nixos-hardware.nixosModules.microsoft-surface-pro-intel
-      ];
-    };
+    featherCommon = [
+      # rebuild target
+      { environment.etc."nixos-rebuild-target".text = "feather\n"; }
 
-    nixosConfigurations.feather-niri = nixpkgs.lib.nixosSystem {
+      # hardware and host-specific config
+      ./hosts/feather
+
+      # shared system modules
+      ./modules/common.nix
+      ./modules/desktop.nix
+      ./modules/gnome-circle.nix
+      ./modules/ai.nix
+      nixos-hardware.nixosModules.microsoft-surface-pro-intel
+    ];
+  in {
+    nixosConfigurations.feather = nixpkgs.lib.nixosSystem {
       inherit system pkgs specialArgs;
-      modules = [
-        { environment.etc."nixos-rebuild-target".text = "feather-niri\n"; }
-        ./hosts/feather
-        ./modules/common.nix
-        ./modules/desktop.nix
-        ./modules/gnome-circle.nix
-        ./modules/niri.nix
-        dank-material-shell.nixosModules.default
-        ./modules/ai.nix
-        nixos-hardware.nixosModules.microsoft-surface-pro-intel
+      modules = featherCommon ++ [
+        # default DE — change this one line to swap the default
+        ./hosts/feather/gnome.nix
+
+        # specialisations: self-contained, no cross-DE knowledge
+        {
+          specialisation.gnome = {
+            inheritParentConfig = false;
+            configuration = {
+              imports = featherCommon ++ [ ./hosts/feather/gnome.nix ];
+              environment.etc."nixos-current-specialisation".text = "gnome";
+            };
+          };
+          specialisation.niri = {
+            inheritParentConfig = false;
+            configuration = {
+              imports = featherCommon ++ [ ./hosts/feather/niri.nix ];
+              environment.etc."nixos-current-specialisation".text = "niri";
+            };
+          };
+        }
       ];
     };
 
