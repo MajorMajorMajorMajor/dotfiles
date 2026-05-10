@@ -26,6 +26,11 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    dedrm = {
+      url = "github:noDRM/DeDRM_tools/v10.0.9";
+      flake = false;
+    };
   };
 
   outputs = {

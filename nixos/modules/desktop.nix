@@ -1,16 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
-
-let
-  dedrm-archive = pkgs.fetchurl {
-    url = "https://github.com/noDRM/DeDRM_tools/releases/download/v10.0.9/DeDRM_tools_10.0.9.zip";
-    sha256 = "1nmb38jrrgai7zahbmx9sly850qqvbk3krmpp4g8gp269bwpyvnl";
-    name = "DeDRM_tools_10.0.9.zip";
-  };
-  dedrm-plugins = pkgs.runCommand "dedrm-plugins" { buildInputs = [ pkgs.unzip ]; } ''
-    mkdir -p $out
-    unzip ${dedrm-archive} DeDRM_plugin.zip Obok_plugin.zip -d $out/
-  '';
-in
+{ pkgs, pkgs-unstable, inputs, ... }:
 
 {
   services.xserver.xkb = {
@@ -101,8 +89,8 @@ in
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStart = toString (pkgs.writeShellScript "calibre-install-dedrm" ''
-        ${pkgs.calibre}/bin/calibre-customize -a ${dedrm-plugins}/DeDRM_plugin.zip
-        ${pkgs.calibre}/bin/calibre-customize -a ${dedrm-plugins}/Obok_plugin.zip
+        ${pkgs.calibre}/bin/calibre-customize -a ${inputs.dedrm}/DeDRM_plugin.zip
+        ${pkgs.calibre}/bin/calibre-customize -a ${inputs.dedrm}/Obok_plugin.zip
       '');
     };
   };
