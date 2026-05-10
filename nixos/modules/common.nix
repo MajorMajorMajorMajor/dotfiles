@@ -32,6 +32,7 @@
 
   environment.shellAliases = {
     lg = "lazygit";
+    ccl = "nix run ll#claude-code -- --dangerously-skip-permissions";
   };
 
   # Required for ad-hoc `nix shell`/`nix run` with unfree packages;
