@@ -46,6 +46,19 @@ in
     maestral
     (writeShellScriptBin "maestral_qt" ''
       export XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}:${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+
+      # Start the daemon through our systemd user unit before launching the GUI.
+      # maestral_qt can start the daemon itself, but only waits around 30s;
+      # starting it here preserves the GNOME wrapper while avoiding login autostart.
+      ${systemd}/bin/systemctl --user start maestral.service || true
+
+      attempts=0
+      while ! ${maestral}/bin/maestral status >/dev/null 2>&1; do
+        attempts=$((attempts + 1))
+        [ "$attempts" -ge 120 ] && break
+        ${coreutils}/bin/sleep 0.5
+      done
+
       exec ${maestral-gui}/bin/maestral_qt "$@"
     '')
     # Desktop file and icon for GNOME app launcher (writeShellScriptBin provides only the binary)
@@ -70,11 +83,9 @@ in
     pulse.enable = true;
   };
 
-  # Start maestral daemon at login so maestral_qt connects instantly instead of timing out
+  # Keep a systemd user unit available for on-demand startup from the maestral_qt wrapper.
   systemd.user.services.maestral = {
     description = "Maestral Dropbox sync daemon";
-    wantedBy = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
       Restart = "on-failure";
