@@ -7,12 +7,6 @@
     package = pkgs-unstable.niri;
   };
 
-  programs.dank-material-shell = {
-    enable = true;
-    systemd.enable = true;
-    dgop.package = pkgs-unstable.dgop;
-  };
-
   environment.systemPackages =
     (with pkgs-unstable; [
       fuzzel
