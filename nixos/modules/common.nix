@@ -84,6 +84,7 @@
     # my preferred tools
     screen
     bat
+    stow
 
     # hipster stuff
     lazygit
