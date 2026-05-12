@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    noctalia-shell = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     dedrm = {
       url = "github:noDRM/DeDRM_tools/v10.0.9";
       flake = false;
@@ -42,6 +47,7 @@
     llm-agents,
     llm-agents-pinned,
     dank-material-shell,
+    noctalia-shell,
     ...
   } @ inputs:
   let
@@ -96,6 +102,13 @@
             configuration = {
               imports = featherCommon ++ [ ./hosts/feather/niri.nix ];
               environment.etc."nixos-current-specialisation".text = "niri";
+            };
+          };
+          specialisation.niri-noctalia = {
+            inheritParentConfig = false;
+            configuration = {
+              imports = featherCommon ++ [ ./hosts/feather/niri-noctalia.nix ];
+              environment.etc."nixos-current-specialisation".text = "niri-noctalia";
             };
           };
         }
