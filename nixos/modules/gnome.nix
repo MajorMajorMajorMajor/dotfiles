@@ -1,4 +1,4 @@
-{ pkgs-unstable, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   services.xserver.enable = true;
@@ -18,8 +18,12 @@
   # Override only mutter's xwayland input so the rest of the GNOME stack
   # stays on stable; this triggers a local mutter rebuild.
   nixpkgs.overlays = [
-    (_: prev: {
+    (final: prev: {
       mutter = prev.mutter.override { xwayland = pkgs-unstable.xwayland; };
     })
   ];
+
+  warnings = pkgs.lib.optional
+    (builtins.compareVersions pkgs.xwayland.version "24.1.11" >= 0)
+    "gnome.nix: stable xwayland is now ≥24.1.11 — remove the mutter overlay and pkgs-unstable.xwayland workaround";
 }
