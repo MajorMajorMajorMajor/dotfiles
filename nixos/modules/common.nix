@@ -27,7 +27,7 @@
 
   environment.variables = {
     VISUAL = "vim";
-    LESS = "--mouse";
+    LESS = "--mouse --RAW-CONTROL-CHARS --quit-if-one-screen --no-init";
   };
 
   environment.shellAliases = {
