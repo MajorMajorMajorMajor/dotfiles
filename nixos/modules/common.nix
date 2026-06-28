@@ -61,7 +61,7 @@
     killall
 
     # dev tools
-    python312
+    python313
     git
     gh
 
