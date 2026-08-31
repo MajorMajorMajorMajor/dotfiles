@@ -139,6 +139,23 @@
         "type": "github"
       }
     },
+    "dedrm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690954775,
+        "narHash": "sha256-BPNnIZwpafNa566BHK9IKG2PHVU8N8HJ4rR3ECSvyps=",
+        "owner": "noDRM",
+        "repo": "DeDRM_tools",
+        "rev": "b9bad26d4b6efa43efdafd8b060f33ea1d945f36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noDRM",
+        "ref": "v10.0.9",
+        "repo": "DeDRM_tools",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -363,15 +380,37 @@
         "type": "github"
       }
     },
+    "noctalia-shell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788188509,
+        "narHash": "sha256-zXdjL1mPqwsF14yDIumX3hW+3zCf7hq6DqCf5gnyP54=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "d3056c370bc4d24461f9bcc720f1d2190c27d7fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "dank-material-shell": "dank-material-shell",
+        "dedrm": "dedrm",
         "llm-agents": "llm-agents",
         "llm-agents-pinned": "llm-agents-pinned",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "noctalia-shell": "noctalia-shell"
       }
     },
     "systems": {

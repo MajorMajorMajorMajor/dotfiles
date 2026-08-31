@@ -62,6 +62,10 @@
     calibre
   ];
 
+  warnings = pkgs.lib.optional
+    (pkgs-unstable.logseq.version != "0.10.15")
+    "desktop.nix: pkgs-unstable.logseq has changed from 0.10.15 — check whether the electron-39.8.10 insecure-package exception can now be removed";
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
