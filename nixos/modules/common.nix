@@ -27,11 +27,12 @@
 
   environment.variables = {
     VISUAL = "vim";
-    LESS = "--mouse";
+    LESS = "--mouse --RAW-CONTROL-CHARS --quit-if-one-screen --no-init";
   };
 
   environment.shellAliases = {
     lg = "lazygit";
+    ccl = "nix run ll#claude-code -- --dangerously-skip-permissions";
   };
 
   # Required for ad-hoc `nix shell`/`nix run` with unfree packages;
@@ -83,6 +84,7 @@
     # my preferred tools
     screen
     bat
+    stow
 
     # hipster stuff
     lazygit

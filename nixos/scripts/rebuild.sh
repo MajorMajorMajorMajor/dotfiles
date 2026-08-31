@@ -28,4 +28,7 @@ else
   exit 1
 fi
 
-exec sudo NIX_CONFIG="$NIX_CONFIG" nixos-rebuild switch --flake "$flake_root#$target"
+spec="$(cat /etc/nixos-current-specialisation 2>/dev/null || true)"
+
+exec sudo NIX_CONFIG="$NIX_CONFIG" nixos-rebuild switch --flake "$flake_root#$target" \
+  ${spec:+--specialisation "$spec"}
