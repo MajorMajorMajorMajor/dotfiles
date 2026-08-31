@@ -53,6 +53,10 @@
     defaultEditor = true;
   };
 
+  # workaround for build error on python3.12-3.12.13-doc
+  #   https://github.com/NixOS/nixpkgs/issues/499166
+  #   https://discourse.nixos.org/t/build-fail-migrating-from-25-11-to-26-05-relating-to-python-and-sphinx/77959/2
+  documentation.doc.enable = false;
 
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "rebuild" (builtins.readFile ../scripts/rebuild.sh))
