@@ -2,7 +2,10 @@
 
 {
   environment.systemPackages = [
-    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+    (llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi.override {
+      useBun = false;
+    })
+
     llm-agents-pinned.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
   ];
 }
